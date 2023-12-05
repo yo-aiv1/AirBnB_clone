@@ -12,6 +12,8 @@ class BaseModel:
         """Initialize a new instance."""
         if kwargs:
             for key, val in kwargs.items():
+                if key == '__class__':
+                    continue
                 if key in ['created_at', 'updated_at']:
                     val = datetime.strptime("%Y-%m-%dT%H:%M:%S.%f")
                 setattr(self, key, val)
