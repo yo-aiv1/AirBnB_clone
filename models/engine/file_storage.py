@@ -2,6 +2,7 @@
 """Storage class."""
 import json
 import os.path
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -24,7 +25,7 @@ class FileStorage:
         Args:
             obj (object): object
         """
-        key = "{}.{}".format(__class__.__name__, obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
@@ -32,14 +33,17 @@ class FileStorage:
         new_dict = {}
 
         for key in FileStorage.__objects.keys():
-            new_dict[key] = FileStorage.__objects[key]
+            new_dict[key] = FileStorage.__objects[key].to_dict()
 
         with open(FileStorage.__file_path, 'w') as f:
             json.dump(new_dict, f)
 
     def reload(self):
         """Deserializes the JSON file to __objects."""
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, 'r') as f:
-                json_data = f.read()
-            FileStorage.__objects = json.loads(json_data)
+        filepath = FileStorage.__file_path
+        fileobject = FileStorage.__objects
+        if os.path.exists(filepath):
+            with open(filepath, 'r') as f:
+                json_data = json.load(f)
+                for key, value in json_data.items():
+                    fileobject[key] = eval(value['__class__'])(**value)
