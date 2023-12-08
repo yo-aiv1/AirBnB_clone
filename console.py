@@ -3,7 +3,7 @@
 
 import cmd
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage as storage
+from models import storage
 import shlex
 
 
@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not arg:
             print("** class name missing **")
-        elif all_args[0] not in ['BaseModel', 'FileStorage']:
+        elif all_args[0] not in ['BaseModel', 'User']:
             print("** class doesn't exist **")
         elif len(all_args) < 2:
             print("** instance id missing **")
@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not arg:
             print("** class name missing **")
-        elif all_args[0] not in ['BaseModel', 'storage']:
+        elif all_args[0] not in ['BaseModel', 'User']:
             print("** class doesn't exist **")
         elif len(all_args) < 2:
             print("** instance id missing **")
@@ -83,13 +83,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Print all string representation of all instances based."""
-        if not arg:
-            print([str(o) for o in storage.all(self)])
-        elif arg not in ['BaseModel', 'FileStorage']:
+        all_args = arg.split()
+        if len(all_args) < 1:
+            print([str(obj)
+                   for _, obj in storage.all(self).items()])
+        elif arg not in ['BaseModel', 'User']:
             print("** class doesn't exist **")
         else:
-            v = [str(o) for o in storage.all(self) if o.split('.')[0] == arg]
-            print(v)
+            instance = [str(obj)
+                        for obj in storage.all(self).items()
+                        if type(obj).__name__ == arg[0]]
+            print(instance)
 
     def do_update(self, arg):
         """Update an instance based on the args."""
