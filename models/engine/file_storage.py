@@ -4,7 +4,11 @@ import json
 import os.path
 from models.base_model import BaseModel
 from models.user import User
-
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
 
 class FileStorage:
     """The FileStorage class."""
@@ -43,10 +47,14 @@ class FileStorage:
     def reload(self):
         """Deserializes the JSON file to __objects."""
         filepath = FileStorage.__file_path
-        fileobject = FileStorage.__objects
+
+        new_dict = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'City': City, 'Amenity': Amenity, 'State': State,
+               'Review': Review}
+
         if os.path.exists(filepath):
             with open(filepath, 'r') as f:
                 json_data = json.load(f)
                 for key, value in json_data.items():
                     if value['__class__'] in self.names:
-                        fileobject[key] = eval(value['__class__'])(**value)
+                        self.new(new_dict[value['__class__']](**value))
