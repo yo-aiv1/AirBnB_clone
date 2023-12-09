@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.state import State
 from models.review import Review
 
+
 class FileStorage:
     """The FileStorage class."""
 
@@ -48,9 +49,11 @@ class FileStorage:
         """Deserializes the JSON file to __objects."""
         filepath = FileStorage.__file_path
 
-        new_dict = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'City': City, 'Amenity': Amenity, 'State': State,
-               'Review': Review}
+        new_dict = {
+                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                    'City': City, 'Amenity': Amenity, 'State': State,
+                    'Review': Review
+                    }
 
         if os.path.exists(filepath):
             with open(filepath, 'r') as f:

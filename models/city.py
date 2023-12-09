@@ -1,16 +1,14 @@
 #!/usr/bin/python3
-"""
-Class : City
-"""
+"""Class : City."""
 
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """City Class inherits from BaseModel"""
+    """City Class inherits from BaseModel."""
 
     def __init__(self, *args, **kwargs):
-        """Constructor for City"""
+        """Construct for City."""
         super().__init__(*args, **kwargs)
         self.state_id = ""
         self.name = ""
