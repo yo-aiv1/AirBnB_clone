@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
                         'City': City, 'Amenity': Amenity, 'State': State,
                         'Review': Review
                         }
-                my_model = dct[eval(arg)]()
+                my_model = dct[arg]()
                 print(my_model.id)
                 my_model.save()
             except NameError:
@@ -63,12 +63,12 @@ class HBNBCommand(cmd.Cmd):
         elif len(all_args) < 2:
             print("** instance id missing **")
         else:
-            ins = storage.all(self)
+            ins = storage.all()
             for key, value in ins.items():
                 objname = value.__class__.__name__
                 objid = value.id
                 if objname == all_args[0] and objid == all_args[1].strip('"'):
-                    objname(value)
+                    print(value)
                     return
             print("** no instance found **")
 
@@ -83,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(all_args) < 2:
             print("** instance id missing **")
         else:
-            ins = storage.all(self)
+            ins = storage.all()
             for key, value in ins.items():
                 ob_name = value.__class__.__name__
                 ob_id = value.id
@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(all_args) == 1:
             print("** instance id missing **")
         else:
-            ins = storage.all(self)
+            ins = storage.all()
             for key, value in ins.items():
                 objname = value.__class__.__name__
                 objid = value.id
@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                         print("** value missing **")
                     else:
                         setattr(value, all_args[2], all_args[3])
-                        storage.save(self)
+                        storage.save()
                     return
             print("** no instance found **")
 
