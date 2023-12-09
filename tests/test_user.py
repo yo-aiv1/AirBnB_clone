@@ -6,6 +6,8 @@ from models.base_model import BaseModel
 
 
 class TestUser(unittest.TestCase):
+    """ unittest testing for TestUser """
+
     def test_attributes(self):
         user = User()
         self.assertEqual(user.email, "")
@@ -14,6 +16,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.last_name, "")
 
     def test_inheritance(self):
+        """ testing test_inheritance """
         user = User()
         self.assertIsInstance(user, BaseModel)
 

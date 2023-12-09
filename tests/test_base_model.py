@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""unittest for base_model"""
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
@@ -56,6 +57,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(my_model.my_number, my_model_json['my_number'])
 
     def test_attribute_modification(self):
+        """ attr test_attribute_modification test """
         my_model = BaseModel()
         my_model.name = "Test Model"
         self.assertEqual(my_model.name, "Test Model")
