@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-"""Class : Amenity."""
+"""Class : Amenity.
+Public class attributes
+"""
 
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Amenity Class inherits from BaseModel."""
+    """Amenity Class inherits from BaseModel.
+    Public class attributes:
 
-    def __init__(self, *args, **kwargs):
-        """Define amenities."""
-        super().__init__(*args, **kwargs)
-        self.name = ""
+        name
+    """
+
+    name = ""

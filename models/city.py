@@ -1,14 +1,17 @@
 #!/usr/bin/python3
-"""Class : City."""
+"""Class : City.
+Public class attributes
+"""
 
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """City Class inherits from BaseModel."""
+    """City Class inherits from BaseModel.
+    Public class attributes:
+        state_id
+        name
+    """
 
-    def __init__(self, *args, **kwargs):
-        """Construct for City."""
-        super().__init__(*args, **kwargs)
-        self.state_id = ""
-        self.name = ""
+    state_id = ""
+    name = ""

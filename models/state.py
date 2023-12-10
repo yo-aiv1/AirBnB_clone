@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-"""Class : State."""
+"""Class : State.
+Class inherits from BaseModel.
+"""
 
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """State Class inherits from BaseModel."""
-
-    def __init__(self, *args, **kwargs):
-        """Construct for State."""
-        super().__init__(*args, **kwargs)
-        self.name = ""
+    """State Class inherits from BaseModel.
+    Public class attributes:
+        name
+    """
+    name = ""
