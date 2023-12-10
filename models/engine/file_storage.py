@@ -28,7 +28,6 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
-    names = ['BaseModel', 'User']
 
     def all(self):
         """Public method to return objects.
@@ -71,5 +70,4 @@ class FileStorage:
             with open(filepath, 'r') as f:
                 json_data = json.load(f)
                 for key, value in json_data.items():
-                    if value['__class__'] in self.names:
-                        self.new(new_dict[value['__class__']](**value))
+                    self.new(new_dict[value['__class__']](**value))
