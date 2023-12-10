@@ -4,6 +4,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
 from models.place import Place
 from models.city import City
 from models.amenity import Amenity
@@ -38,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
                 dct = {
                         'BaseModel': BaseModel, 'Place': Place,
                         'City': City, 'Amenity': Amenity, 'State': State,
-                        'Review': Review
+                        'Review': Review, 'User': User
                         }
                 my_model = dct[arg]()
                 print(my_model.id)
@@ -138,6 +139,16 @@ class HBNBCommand(cmd.Cmd):
                         storage.save()
                     return
             print("** no instance found **")
+
+    def default(self, args):
+        """Default function can be used with the class.
+
+        Example:
+            <class name>.<command>
+        """
+        all_args = args.split('.')
+        if all_args[1] == "all()":
+            self.do_all(all_args[0])
 
 
 if __name__ == '__main__':
