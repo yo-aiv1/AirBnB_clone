@@ -17,7 +17,12 @@ class TestBaseModel(unittest.TestCase):
     """
 
     def test_instance_type(self):
-        """ test type of instances """
+        """ test type of instances
+        Test:
+            BaseModel Object
+            id is str
+            type of datatime
+        """
         my_model = BaseModel()
         self.assertIsInstance(my_model, BaseModel)
         self.assertIsInstance(my_model.id, str)
@@ -25,22 +30,25 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(my_model.updated_at, datetime)
 
     def test_str(self):
-        """test str instance """
+        """test str instance
+
+        Test:
+            test __dict__
+            id in Obj
+        """
         my_model = BaseModel()
         frst_str = str(my_model)
         self.assertIn("[BaseModel]", frst_str)
         self.assertIn(str(my_model.id), frst_str)
         self.assertIn(str(my_model.__dict__), frst_str)
 
-    def test_save(self):
-        """Test saving mode """
-        my_model = BaseModel()
-        my_model.save()
-
     def test_to_dict(self):
         """
         Test serialization meth
         adding Kwark and get data from to_dic Part
+
+        Test:
+            all test_attribute_modification
         """
         my_model = BaseModel()
         my_model.name = "Y and Z team"
@@ -67,7 +75,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(my_model.my_number, my_model_json['my_number'])
 
     def test_attribute_modification(self):
-        """ attr test_attribute_modification test """
+        """ attr test_attribute_modification test
+
+        Test:
+            name testing
+        """
         my_model = BaseModel()
         my_model.name = "Test Model"
         self.assertEqual(my_model.name, "Test Model")

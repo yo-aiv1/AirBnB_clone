@@ -22,7 +22,11 @@ class BaseModel:
     """
 
     def __init__(self, *args, **kwargs):
-        """Initialize a new instance."""
+        """Initialize a new instance.
+
+        Returns:
+            BaseModel(id, created_at, updated_at) obj
+        """
         if kwargs:
             for key, val in kwargs.items():
                 if key == '__class__':
@@ -37,12 +41,20 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """Will return information about the class."""
+        """Will return information about the class.
+
+        Return:
+        print: [<class name>] (<self.id>) <self.__dict__>
+        """
         classname = "{}".format(self.__class__.__name__)
         return "[{}] ({}) {}".format(classname, self.id, self.__dict__)
 
     def save(self):
-        """Update updated_at time."""
+        """Update updated_at time.
+
+        Return:
+            updated_at time and save file.json data
+        """
         self.updated_at = datetime.now()
         models.storage.save()
 

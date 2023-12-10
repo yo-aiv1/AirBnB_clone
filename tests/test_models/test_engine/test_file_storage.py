@@ -20,22 +20,37 @@ class TestFileStorage(unittest.TestCase):
     """
 
     def setUp(self):
-        """Set up the test environment."""
+        """Set up the test environment.
+
+        Test:
+            create a storage.json file
+        """
         self.file_path = 'test_storage.json'
         self.storage = FileStorage()
         self.storage._FileStorage__file_path = self.file_path
 
     def fullClear(self):
-        """Clear Up the test environment."""
+        """Clear Up the test environment.
+
+        Test:
+            deletes all json files
+        """
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
 
     def test_all_empty(self):
-        """Test the 'all' method with an empty storage."""
+        """Test the 'all' method with an empty storage.
+
+        Test:
+            Empty test
+        """
         self.assertEqual(self.storage.all(), {})
 
     def test_all_non_empty(self):
-        """Test the 'all' method with a non-empty storage."""
+        """Test the 'all' method with a non-empty storage.
+        Test:
+            is not empty test
+        """
         obj = BaseModel()
         self.storage.new(obj)
         self.storage.save()
@@ -43,13 +58,21 @@ class TestFileStorage(unittest.TestCase):
                          {'BaseModel.{}'.format(obj.id): obj})
 
     def test_new(self):
-        """Test the 'new' method."""
+        """Test the 'new' method.
+
+        Test:
+            new item and test item existance
+        """
         obj = BaseModel()
         self.storage.new(obj)
         self.assertIn('BaseModel.{}'.format(obj.id), self.storage.all())
 
     def test_save(self):
-        """Test the 'save' method."""
+        """Test the 'save' method.
+
+        Test:
+            test save method
+        """
         obj = BaseModel()
         self.storage.new(obj)
         self.storage.save()
@@ -59,7 +82,11 @@ class TestFileStorage(unittest.TestCase):
             self.assertIn('BaseModel.{}'.format(obj.id), data)
 
     def test_reload(self):
-        """Test the 'reload' method."""
+        """Test the 'reload' method.
+
+        Test:
+            test reload method
+        """
         obj = BaseModel()
         self.storage.new(obj)
         self.storage.save()
