@@ -1,12 +1,20 @@
 #!/usr/bin/python3
-"""unittest for base_model"""
+"""
+unittest for base_model to test
+all public instances
+"""
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
 
 class TestBaseModel(unittest.TestCase):
-    """ Test_BaseModel unite class"""
+    """ Test_BaseModel unite class
+    test_instance_type
+    test_str
+    test_save
+    test_to_dict
+    """
 
     def test_instance_type(self):
         """ test type of instances """
@@ -30,7 +38,10 @@ class TestBaseModel(unittest.TestCase):
         my_model.save()
 
     def test_to_dict(self):
-        """Test serialization meth"""
+        """
+        Test serialization meth
+        adding Kwark and get data from to_dic Part
+        """
         my_model = BaseModel()
         my_model.name = "Y and Z team"
         my_model.my_number = 98
@@ -48,7 +59,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(my_model_json['name'], 'Y and Z team')
         self.assertEqual(my_model_json['my_number'], 98)
 
-        """ adding Kwark and get data from to_dic Part """
         my_model = BaseModel(**my_model_json)
 
         self.assertIsInstance(my_model, BaseModel)

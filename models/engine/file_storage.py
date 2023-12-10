@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-"""Storage class."""
+"""
+The FileStorage class.that serializes instances to a
+JSON file and deserializes JSON file to instanes
+"""
+
 import json
 import os.path
 from models.base_model import BaseModel
@@ -12,8 +16,16 @@ from models.review import Review
 
 
 class FileStorage:
-    """The FileStorage class."""
-
+    """Storage class.
+    attributes:
+        __file_path
+        __objects
+    methods:
+        all
+        new
+        save
+        reload
+    """
     __file_path = "file.json"
     __objects = {}
     names = ['BaseModel', 'User']

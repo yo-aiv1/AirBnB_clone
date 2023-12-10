@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""BaseModel class for the Airbnb clone."""
+"""
+BaseModel Modul is the parent class for all entities within
+the AirBnB clone, providing foundational attributes and methods
+"""
 
 import uuid
 from datetime import datetime
@@ -7,7 +10,16 @@ import models
 
 
 class BaseModel:
-    """BaseModel Class."""
+    """BaseModel Class.
+    Public instance:
+        id
+        created_at
+        updated_at
+    methods:
+        __str__
+        save
+        to_dict
+    """
 
     def __init__(self, *args, **kwargs):
         """Initialize a new instance."""
