@@ -32,22 +32,22 @@ class HBNBCommand(cmd.Cmd):
         """Emptyline line do nothing."""
         pass
 
-    def do_create(self, model_name):
+    def do_create(self, arg):
         """Create a new instance of BaseModel and Save it."""
-
-        if model_name not in ['BaseModel', 'User']:
-            print("** class doesn't exist **")
-        elif not model_name:
-            print("** class name missing **")
+        if arg:
+            try:
+                dct = {
+                        'BaseModel': BaseModel, 'Place': Place,
+                        'City': City, 'Amenity': Amenity, 'State': State,
+                        'Review': Review, 'User': User
+                        }
+                my_model = dct[arg]()
+                print(my_model.id)
+                my_model.save()
+            except NameError:
+                print("** class doesn't exist **")
         else:
-            dct = {
-                    'BaseModel': BaseModel, 'Place': Place,
-                    'City': City, 'Amenity': Amenity, 'State': State,
-                    'Review': Review, 'User': User
-                    }
-            my_model = dct[model_name]()
-            print(my_model.id)
-            my_model.save()
+            print("** class name missing **")
 
     def do_show(self, arg):
         """
