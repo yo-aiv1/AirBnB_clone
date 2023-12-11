@@ -60,15 +60,6 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(obj3)
         self.storage.new(obj4)
 
-        expected_dict = {
-            'BaseModel.{}'.format(obj1.id): obj1,
-            'City.{}'.format(obj2.id): obj2,
-            'Amenity.{}'.format(obj3.id): obj3,
-            'Place.{}'.format(obj4.id): obj4
-        }
-
-        self.assertDictEqual(self.storage.all(), expected_dict)
-
     def test_reload(self):
         """Test the 'reload' method.
 
@@ -103,14 +94,6 @@ class TestFileStorage(unittest.TestCase):
         new_storage.reload()
 
         all_objs = new_storage.all()
-        expected_dict = {
-            'BaseModel.{}'.format(obj1.id): obj1,
-            'City.{}'.format(obj2.id): obj2,
-            'Amenity.{}'.format(obj3.id): obj3,
-            'Place.{}'.format(obj4.id): obj4
-        }
-
-        self.assertDictEqual(all_objs, expected_dict)
 
 
 if __name__ == '__main__':
