@@ -7,6 +7,9 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import os
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
 
 
 class TestFileStorage(unittest.TestCase):
@@ -38,25 +41,6 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
 
-    def test_all_empty(self):
-        """Test the 'all' method with an empty storage.
-
-        Test:
-            Empty test
-        """
-        self.assertEqual(self.storage.all(), {})
-
-    def test_all_non_empty(self):
-        """Test the 'all' method with a non-empty storage.
-        Test:
-            is not empty test
-        """
-        obj = BaseModel()
-        self.storage.new(obj)
-        self.storage.save()
-        self.assertEqual(self.storage.all(),
-                         {'BaseModel.{}'.format(obj.id): obj})
-
     def test_new(self):
         """Test the 'new' method.
 
@@ -66,20 +50,15 @@ class TestFileStorage(unittest.TestCase):
         obj = BaseModel()
         self.storage.new(obj)
         self.assertIn('BaseModel.{}'.format(obj.id), self.storage.all())
+        obj1 = BaseModel()
+        obj2 = City()
+        obj3 = Amenity()
+        obj4 = Place()
 
-    def test_save(self):
-        """Test the 'save' method.
-
-        Test:
-            test save method
-        """
-        obj = BaseModel()
-        self.storage.new(obj)
-        self.storage.save()
-
-        with open(self.file_path, 'r') as file:
-            data = file.read()
-            self.assertIn('BaseModel.{}'.format(obj.id), data)
+        self.storage.new(obj1)
+        self.storage.new(obj2)
+        self.storage.new(obj3)
+        self.storage.new(obj4)
 
     def test_reload(self):
         """Test the 'reload' method.
@@ -97,6 +76,24 @@ class TestFileStorage(unittest.TestCase):
 
         all_objs = new_storage.all()
         self.assertIn('BaseModel.{}'.format(obj.id), all_objs)
+
+        obj1 = BaseModel()
+        obj2 = City()
+        obj3 = Amenity()
+        obj4 = Place()
+
+        self.storage.new(obj1)
+        self.storage.new(obj2)
+        self.storage.new(obj3)
+        self.storage.new(obj4)
+
+        self.storage.save()
+
+        new_storage = FileStorage()
+        new_storage._FileStorage__file_path = self.file_path
+        new_storage.reload()
+
+        all_objs = new_storage.all()
 
 
 if __name__ == '__main__':

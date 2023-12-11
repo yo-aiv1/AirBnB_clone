@@ -1,15 +1,19 @@
 #!/usr/bin/python3
-"""Class : Review."""
+"""Class : Review.
+Public class attributes inherits from BaseModel
+"""
 
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """Review Class inherits from BaseModel."""
+    """Review Class inherits from BaseModel.
+    Public class attributes:
+        place_id
+        user_id
+        text
+    """
 
-    def __init__(self, *args, **kwargs):
-        """Construct for Review."""
-        super().__init__(*args, **kwargs)
-        self.place_id = ""
-        self.user_id = ""
-        self.text = ""
+    place_id = ""
+    user_id = ""
+    text = ""

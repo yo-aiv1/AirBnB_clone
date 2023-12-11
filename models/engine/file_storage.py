@@ -28,7 +28,8 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
-    names = ['BaseModel', 'User']
+    names = ['BaseModel', 'User', 'Place', 'City', 'Amenity', 'State',
+             'Review']
 
     def all(self):
         """Public method to return objects.
@@ -36,7 +37,7 @@ class FileStorage:
         Returns:
             dict: objects
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """Public method to set objets.
