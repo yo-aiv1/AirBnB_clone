@@ -54,6 +54,7 @@ class BaseModel:
 
         Return:
             updated_at time and save file.json data
+
         """
         self.updated_at = datetime.now()
         models.storage.save()
@@ -63,8 +64,14 @@ class BaseModel:
 
         containing all keys/values of __dict__ of the instance.
         """
-        my_obj = self.__dict__.copy()
-        my_obj['__class__'] = self.__class__.__name__
-        my_obj['created_at'] = self.created_at.isoformat()
-        my_obj['updated_at'] = self.updated_at.isoformat()
-        return my_obj
+        result = {}
+        result['__class__'] = type(self).__name__
+        for key in self.__dict__.keys():
+            if key == "updated_at" or key == "created_at":
+                value = self.__dict__[key]
+                new_value = value.strftime("%Y-%m-%dT%H:%M:%S.%f")
+                result[key] = new_value
+            else:
+                result[key] = self.__dict__[key]
+
+        return result
