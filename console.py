@@ -17,6 +17,8 @@ class HBNBCommand(cmd.Cmd):
     """HBNBCommand Class."""
 
     prompt = '(hbnb) '
+    names_list = ['BaseModel', 'User', 'Amenity',
+                 'Place', 'City', 'State', 'Review']
 
     def do_EOF(self, arg):
         """Exit the program when EOF."""
@@ -34,20 +36,22 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Create a new instance of BaseModel and Save it."""
-        if arg:
-            try:
+
+        all_args = arg.split()
+
+        if not arg:
+            print("** class name missing **")
+        elif all_args[0] not in HBNBCommand.names_list:
+            print("** class doesn't exist **")
+        else:
                 dct = {
                         'BaseModel': BaseModel, 'Place': Place,
                         'City': City, 'Amenity': Amenity, 'State': State,
                         'Review': Review, 'User': User
                         }
-                my_model = dct[arg]()
+                my_model = dct[all_args[0]]()
                 print(my_model.id)
                 my_model.save()
-            except NameError:
-                print("** class doesn't exist **")
-        else:
-            print("** class name missing **")
 
     def do_show(self, arg):
         """
@@ -59,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not arg:
             print("** class name missing **")
-        elif all_args[0] not in ['BaseModel', 'User']:
+        elif all_args[0] not in HBNBCommand.names_list:
             print("** class doesn't exist **")
         elif len(all_args) < 2:
             print("** instance id missing **")
@@ -79,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not arg:
             print("** class name missing **")
-        elif all_args[0] not in ['BaseModel', 'User']:
+        elif all_args[0] not in HBNBCommand.names_list:
             print("** class doesn't exist **")
         elif len(all_args) < 2:
             print("** instance id missing **")
@@ -102,7 +106,7 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        elif arg not in ['BaseModel', 'User']:
+        elif arg not in HBNBCommand.names_list:
             print("** class doesn't exist **")
         else:
             ins = storage.all()
@@ -120,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        elif all_args[0] not in ['BaseModel']:
+        elif all_args[0] not in HBNBCommand.names_list:
             print("** class doesn't exist **")
         elif len(all_args) == 1:
             print("** instance id missing **")
