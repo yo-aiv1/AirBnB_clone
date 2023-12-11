@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     names_list = ['BaseModel', 'User', 'Amenity',
-                 'Place', 'City', 'State', 'Review']
+                  'Place', 'City', 'State', 'Review']
 
     def do_EOF(self, arg):
         """Exit the program when EOF."""
@@ -44,14 +44,14 @@ class HBNBCommand(cmd.Cmd):
         elif all_args[0] not in HBNBCommand.names_list:
             print("** class doesn't exist **")
         else:
-                dct = {
+            dct = {
                         'BaseModel': BaseModel, 'Place': Place,
                         'City': City, 'Amenity': Amenity, 'State': State,
                         'Review': Review, 'User': User
                         }
-                my_model = dct[all_args[0]]()
-                print(my_model.id)
-                my_model.save()
+            my_model = dct[all_args[0]]()
+            print(my_model.id)
+            my_model.save()
 
     def do_show(self, arg):
         """

@@ -84,6 +84,12 @@ class TestBaseModel(unittest.TestCase):
         my_model.name = "Test Model"
         self.assertEqual(my_model.name, "Test Model")
 
+    def test_save_updated_at(self):
+        """Test if updated_at is set to the current datetime."""
+        my_model = BaseModel()
+        my_model.save()
+        self.assertIsInstance(my_model.updated_at, datetime)
+
 
 if __name__ == '__main__':
     unittest.main()
