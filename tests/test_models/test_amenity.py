@@ -19,6 +19,11 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(amenity, Amenity)
         self.assertTrue(hasattr(amenity, 'name'))
 
+    def test_default_attributes(self):
+        """Check if name and state_id are initially set to None."""
+        my_amenity = Amenity()
+        self.assertEqual(my_amenity.name, "")
+
 
 if __name__ == '__main__':
     unittest.main()

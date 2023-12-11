@@ -90,6 +90,17 @@ class TestBaseModel(unittest.TestCase):
         my_model.save()
         self.assertIsInstance(my_model.updated_at, datetime)
 
+    def test_save_updates_timestamp(self):
+        """Check if 'save' updates the 'updated_at' timestamp."""
+        my_object = BaseModel()
+        initial_timestamp = my_object.updated_at
+
+        my_object.save()
+
+        updated_timestamp = my_object.updated_at
+
+        self.assertNotEqual(initial_timestamp, updated_timestamp)
+
 
 if __name__ == '__main__':
     unittest.main()
