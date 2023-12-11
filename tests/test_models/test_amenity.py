@@ -3,7 +3,7 @@
 test_inheritance from BaseModel
 """
 import unittest
-from models.city import Amenity
+from models.amenity import Amenity
 
 
 class TestAmenity(unittest.TestCase):

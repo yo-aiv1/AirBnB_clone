@@ -35,7 +35,7 @@ class FileStorage:
         Returns:
             dict: objects
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """Public method to set objets.

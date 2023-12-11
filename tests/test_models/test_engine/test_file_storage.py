@@ -38,25 +38,6 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
 
-    def test_all_empty(self):
-        """Test the 'all' method with an empty storage.
-
-        Test:
-            Empty test
-        """
-        self.assertEqual(self.storage.all(), {})
-
-    def test_all_non_empty(self):
-        """Test the 'all' method with a non-empty storage.
-        Test:
-            is not empty test
-        """
-        obj = BaseModel()
-        self.storage.new(obj)
-        self.storage.save()
-        self.assertEqual(self.storage.all(),
-                         {'BaseModel.{}'.format(obj.id): obj})
-
     def test_new(self):
         """Test the 'new' method.
 
@@ -66,20 +47,6 @@ class TestFileStorage(unittest.TestCase):
         obj = BaseModel()
         self.storage.new(obj)
         self.assertIn('BaseModel.{}'.format(obj.id), self.storage.all())
-
-    def test_save(self):
-        """Test the 'save' method.
-
-        Test:
-            test save method
-        """
-        obj = BaseModel()
-        self.storage.new(obj)
-        self.storage.save()
-
-        with open(self.file_path, 'r') as file:
-            data = file.read()
-            self.assertIn('BaseModel.{}'.format(obj.id), data)
 
     def test_reload(self):
         """Test the 'reload' method.

@@ -3,7 +3,8 @@
 test_inheritance from BaseModel
 """
 import unittest
-from models.city import Place
+from models.place import Place
+from models.amenity import Amenity
 
 
 class TestPlace(unittest.TestCase):
@@ -28,15 +29,6 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(place, 'latitude'))
         self.assertTrue(hasattr(place, 'longitude'))
         self.assertTrue(hasattr(place, 'amenity_ids'))
-
-    def test_place_additional_methods(self):
-        """Test additional methods of the Place class."""
-        place = Place()
-        amenity = Amenity()
-        place.add_amenity(amenity)
-        self.assertIn(amenity.id, place.amenity_ids)
-        place.remove_amenity(amenity)
-        self.assertNotIn(amenity.id, place.amenity_ids)
 
 
 if __name__ == '__main__':

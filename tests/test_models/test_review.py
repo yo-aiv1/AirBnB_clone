@@ -3,7 +3,7 @@
 test_inheritance from BaseModel
 """
 import unittest
-from models.city import Review
+from models.review import Review
 
 
 class TestReview(unittest.TestCase):
