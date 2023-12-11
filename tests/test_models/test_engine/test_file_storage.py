@@ -95,6 +95,10 @@ class TestFileStorage(unittest.TestCase):
 
         all_objs = new_storage.all()
 
+    def test_file_path(self):
+        """Test the __file_path attribute."""
+        self.assertIsNone(FileStorage.__file_path)
+
 
 if __name__ == '__main__':
     unittest.main()
