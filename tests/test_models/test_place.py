@@ -4,7 +4,6 @@ test_inheritance from BaseModel
 """
 import unittest
 from models.place import Place
-from models.amenity import Amenity
 
 
 class TestPlace(unittest.TestCase):
@@ -43,7 +42,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(my_place.price_by_night, 0)
         self.assertEqual(my_place.latitude, 0.0)
         self.assertEqual(my_place.longitude, 0.0)
-        self.assertEqual(my_place.amenities, [])
+        self.assertEqual(my_place.amenity_ids, [])
 
 
 if __name__ == '__main__':
