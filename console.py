@@ -147,17 +147,12 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, arg):
         """Retrieve the number of instances of a class."""
         all_args = shlex.split(arg)
-        names = HBNBCommand.names_list
-        syn = all_args[1] == 'count()'
-        if len(all_args) == 2 and all_args[0] in names and syn:
-            class_name = all_args[0]
-            try:
-                count = storage.count(class_name)
-                print(count)
-            except Exception as e:
-                print(e)
-        else:
-            print("** invalid command **")
+        class_name = all_args[0]
+        try:
+            count = storage.count(class_name)
+            print(count)
+        except Exception as e:
+            print(e)
 
     def do_show_id(self, class_name, instance_id):
         """Show the string representation of an instance based on
@@ -187,7 +182,7 @@ class HBNBCommand(cmd.Cmd):
         if all_args[1] == "all()":
             self.do_all(all_args[0])
         elif all_args[1] == "count()":
-            self.do_count(f"{all_args[0]} count()")
+            self.do_count(all_args[0])
         elif "show(" in all_args[1] and all_args[1].endswith(")"):
             show_args = all_args[1][5:-1].split(',')
             if len(show_args) == 2:
