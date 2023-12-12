@@ -144,6 +144,39 @@ class HBNBCommand(cmd.Cmd):
                     return
             print("** no instance found **")
 
+    def do_count(self, arg):
+        """Retrieve the number of instances of a class."""
+        all_args = shlex.split(arg)
+        names = HBNBCommand.names_list
+        syn = all_args[1] == 'count()'
+        if len(all_args) == 2 and all_args[0] in names and syn:
+            class_name = all_args[0]
+            try:
+                count = storage.count(class_name)
+                print(count)
+            except Exception as e:
+                print(e)
+        else:
+            print("** invalid command **")
+
+    def do_show_id(self, class_name, instance_id):
+        """Show the string representation of an instance based on
+        the class name and id."""
+        try:
+            obj = storage.get(class_name, instance_id)
+            print(obj)
+        except Exception as e:
+            print(e)
+
+    def do_destroy_id(self, class_name, instance_id):
+        """Destroy an instance based on the class name and id."""
+        try:
+            obj = storage.get(class_name, instance_id)
+            storage.delete(obj)
+            storage.save()
+        except Exception as e:
+            print(e)
+
     def default(self, args):
         """Default function can be used with the class.
 
@@ -153,6 +186,22 @@ class HBNBCommand(cmd.Cmd):
         all_args = args.split('.')
         if all_args[1] == "all()":
             self.do_all(all_args[0])
+        elif all_args[1] == "count()":
+            self.do_count(f"{all_args[0]} count()")
+        elif "show(" in all_args[1] and all_args[1].endswith(")"):
+            show_args = all_args[1][5:-1].split(',')
+            if len(show_args) == 2:
+                self.do_show_id(all_args[0], show_args[1].strip())
+            else:
+                print("** invalid command **")
+        elif "destroy(" in all_args[1] and all_args[1].endswith(")"):
+            destroy_args = all_args[1][8:-1].split(',')
+            if len(destroy_args) == 2:
+                self.do_destroy_id(all_args[0], destroy_args[1].strip())
+            else:
+                print("** invalid command **")
+        else:
+            print("** invalid command **")
 
 
 if __name__ == '__main__':
