@@ -157,18 +157,13 @@ class HBNBCommand(cmd.Cmd):
     def do_show_id(self, class_name, instance_id):
         """Show the string representation of an instance based on
         the class name and id."""
-        try:
-            obj = storage.get(class_name, instance_id)
-            print(obj)
-        except Exception as e:
-            print(e)
+        storage.get(class_name, instance_id)
 
     def do_destroy_id(self, class_name, instance_id):
         """Destroy an instance based on the class name and id."""
         try:
             obj = storage.get(class_name, instance_id)
             storage.delete(obj)
-            storage.save()
         except Exception as e:
             print(e)
 
@@ -185,7 +180,6 @@ class HBNBCommand(cmd.Cmd):
             self.do_count(all_args[0])
         elif "show(" in all_args[1] and all_args[1].endswith(")"):
             show_args = all_args[1][5:-1].split(',')
-            print(show_args, all_args[0])
             if len(show_args) == 1:
                 self.do_show_id(all_args[0], show_args[0].strip())
             else:
