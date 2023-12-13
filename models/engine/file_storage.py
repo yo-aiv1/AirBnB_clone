@@ -84,3 +84,8 @@ class FileStorage:
             return count
         except Exception as e:
             print(e)
+
+    def get(self, cls, id):
+        """Retrieve an instance based on its class name and ID."""
+        key = "{}.{}".format(cls, id.strip('"'))
+        return self.__objects.get(key)
