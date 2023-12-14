@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     names_list = ['BaseModel', 'User', 'Amenity',
-                 'Place', 'City', 'State', 'Review']
+                  'Place', 'City', 'State', 'Review']
 
     def do_EOF(self, arg):
         """Exit the program when EOF."""
@@ -44,14 +44,14 @@ class HBNBCommand(cmd.Cmd):
         elif all_args[0] not in HBNBCommand.names_list:
             print("** class doesn't exist **")
         else:
-                dct = {
+            dct = {
                         'BaseModel': BaseModel, 'Place': Place,
                         'City': City, 'Amenity': Amenity, 'State': State,
                         'Review': Review, 'User': User
                         }
-                my_model = dct[all_args[0]]()
-                print(my_model.id)
-                my_model.save()
+            my_model = dct[all_args[0]]()
+            print(my_model.id)
+            my_model.save()
 
     def do_show(self, arg):
         """
@@ -144,6 +144,29 @@ class HBNBCommand(cmd.Cmd):
                     return
             print("** no instance found **")
 
+    def do_count(self, arg):
+        """Retrieve the number of instances of a class."""
+        all_args = shlex.split(arg)
+        class_name = all_args[0]
+        try:
+            count = storage.count(class_name)
+            print(count)
+        except Exception as e:
+            print(e)
+
+    def do_show_id(self, class_name, instance_id):
+        """Show the string representation of an instance based on
+        the class name and id."""
+        storage.get(class_name, instance_id)
+
+    def do_destroy_id(self, class_name, instance_id):
+        """Destroy an instance based on the class name and id."""
+        try:
+            obj = storage.get(class_name, instance_id)
+            storage.delete(obj)
+        except Exception as e:
+            print(e)
+
     def default(self, args):
         """Default function can be used with the class.
 
@@ -153,6 +176,22 @@ class HBNBCommand(cmd.Cmd):
         all_args = args.split('.')
         if all_args[1] == "all()":
             self.do_all(all_args[0])
+        elif all_args[1] == "count()":
+            self.do_count(all_args[0])
+        elif "show(" in all_args[1] and all_args[1].endswith(")"):
+            show_args = all_args[1][5:-1].split(',')
+            if len(show_args) == 1:
+                self.do_show_id(all_args[0], show_args[0].strip())
+            else:
+                print("** invalid command **")
+        elif "destroy(" in all_args[1] and all_args[1].endswith(")"):
+            destroy_args = all_args[1][8:-1].split(',')
+            if len(destroy_args) == 1:
+                self.do_destroy_id(all_args[0], destroy_args[0].strip())
+            else:
+                print("** invalid command **")
+        else:
+            print("** invalid command **")
 
 
 if __name__ == '__main__':

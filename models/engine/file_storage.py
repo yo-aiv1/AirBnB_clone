@@ -52,10 +52,10 @@ class FileStorage:
         """Serialize __objects to the JSON file."""
         new_dict = {}
 
-        for key in FileStorage.__objects.keys():
-            new_dict[key] = FileStorage.__objects[key].to_dict()
+        for key in self.__objects.keys():
+            new_dict[key] = self.__objects[key].to_dict()
 
-        with open(FileStorage.__file_path, 'w') as f:
+        with open(self.__file_path, 'w') as f:
             json.dump(new_dict, f)
 
     def reload(self):
@@ -74,3 +74,18 @@ class FileStorage:
                 for key, value in json_data.items():
                     if value['__class__'] in self.names:
                         self.new(new_dict[value['__class__']](**value))
+
+    def count(self, class_name):
+        """Count the number of instances of a class."""
+        try:
+            count = sum(1 for
+                        obj in self.__objects.values()
+                        if obj.__class__.__name__ == class_name)
+            return count
+        except Exception as e:
+            print(e)
+
+    def get(self, cls, id):
+        """Retrieve an instance based on its class name and ID."""
+        key = "{}.{}".format(cls, id.strip('"'))
+        return self.__objects.get(key)

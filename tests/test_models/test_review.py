@@ -21,6 +21,13 @@ class TestReview(unittest.TestCase):
         self.assertTrue(hasattr(review, 'place_id'))
         self.assertTrue(hasattr(review, 'user_id'))
 
+    def test_default_attributes(self):
+        """Check if name and state_id are initially set to None."""
+        my_revi = Review()
+        self.assertEqual(my_revi.place_id, "")
+        self.assertEqual(my_revi.user_id, "")
+        self.assertEqual(my_revi.text, "")
+
 
 if __name__ == '__main__':
     unittest.main()

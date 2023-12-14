@@ -25,6 +25,12 @@ class TestCity(unittest.TestCase):
         self.assertTrue(hasattr(city, 'state_id'))
         self.assertTrue(hasattr(city, 'name'))
 
+    def test_default_attributes(self):
+        """Check if name and state_id are initially set to None."""
+        my_city = City()
+        self.assertEqual(my_city.name, "")
+        self.assertEqual(my_city.state_id, "")
+
 
 if __name__ == '__main__':
     unittest.main()

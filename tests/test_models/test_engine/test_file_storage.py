@@ -95,6 +95,23 @@ class TestFileStorage(unittest.TestCase):
 
         all_objs = new_storage.all()
 
+    def test_reload_built_in(self):
+        """Test the reload method."""
+        obj = BaseModel()
+        self.storage.new(obj)
+        self.storage.save()
+
+        self.assertNotEqual(len(self.storage.all()), 0)
+
+        new_storage = FileStorage()
+        new_storage._FileStorage__file_path = self.file_path
+        new_storage.reload()
+
+        self.assertEqual(len(new_storage.all()), len(self.storage.all()))
+
+        for key, value in new_storage.all().items():
+            self.assertIsInstance(value, BaseModel)
+
 
 if __name__ == '__main__':
     unittest.main()
