@@ -178,18 +178,9 @@ class HBNBCommand(cmd.Cmd):
             self.do_all(all_args[0])
         elif all_args[1] == "count()":
             self.do_count(all_args[0])
-        elif "show(" in all_args[1] and all_args[1].endswith(")"):
-            show_args = all_args[1][5:-1].split(',')
-            if len(show_args) == 1:
-                self.do_show_id(all_args[0], show_args[0].strip())
-            else:
-                print("** invalid command **")
-        elif "destroy(" in all_args[1] and all_args[1].endswith(")"):
-            destroy_args = all_args[1][8:-1].split(',')
-            if len(destroy_args) == 1:
-                self.do_destroy_id(all_args[0], destroy_args[0].strip())
-            else:
-                print("** invalid command **")
+        elif "show" in all_args[1]:
+                temp = all_args[1].split('"')
+                self.do_show(all_args[0] + " " + temp[1])
         else:
             print("** invalid command **")
 
