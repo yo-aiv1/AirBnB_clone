@@ -4,6 +4,10 @@ html, body {
     min-height: 10vh;
 }
 
+html {
+    position: relative;
+}
+
 body {
     color: #484848;
     font-size: 14px;
