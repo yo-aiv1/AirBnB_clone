@@ -181,6 +181,9 @@ class HBNBCommand(cmd.Cmd):
         elif "show" in all_args[1]:
                 temp = all_args[1].split('"')
                 self.do_show(all_args[0] + " " + temp[1])
+        elif "destroy" in all_args[1]:
+            temp = all_args[1].split('"')
+            self.do_destroy(all_args[0] + " " + temp[1])
         else:
             print("** invalid command **")
 
